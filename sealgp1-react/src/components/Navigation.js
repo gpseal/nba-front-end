@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import LoginForm from "./forms/LoginForm";
 import InstitutionsTable from "./tables/InstitutionsTable";
+import TeamsTable from "./tables/TeamsTable";
 
 const Navigation = () => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
@@ -55,6 +56,9 @@ const Navigation = () => {
         <NavLink href="/institutions">Institutions</NavLink>
       </NavItem>
       <NavItem>
+        <NavLink href="/teams">Teams</NavLink>
+      </NavItem>
+      <NavItem>
         <NavLink onClick={logout} style={{ cursor: "pointer" }}>
           Logout
         </NavLink>
@@ -85,6 +89,7 @@ const Navigation = () => {
         <Routes>
           <Route path="/login" element={<LoginForm login={login} />} />
           {authResources}
+          <Route path="/teams" element={<TeamsTable />} />
         </Routes>
       </Container>
     </Router>
