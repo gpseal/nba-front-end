@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import LoginForm from "./forms/LoginForm";
 import InstitutionsTable from "./tables/InstitutionsTable";
-import TeamsTable from "./tables/TeamsTable";
+import DataTable from "./tables/DataTable";
 
 const Navigation = () => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
@@ -74,6 +74,9 @@ const Navigation = () => {
     <></>
   );
 
+  const teamFields = ["name", "city", "conference", "division", "stadium"]
+  const playerFields = []
+
   return (
     <Router>
       <Navbar color="dark" dark expand="md">
@@ -89,7 +92,7 @@ const Navigation = () => {
         <Routes>
           <Route path="/login" element={<LoginForm login={login} />} />
           {authResources}
-          <Route path="/teams" element={<TeamsTable />} />
+          <Route path="/teams" element={<DataTable fields={teamFields} category = {"teams"}/>} />
         </Routes>
       </Container>
     </Router>

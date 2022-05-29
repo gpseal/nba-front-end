@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Table } from "reactstrap";
 
-const InstitutionsTable = () => {
+const DataTable = (props) => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
 
   const [data, setData] = useState([])
@@ -10,7 +10,7 @@ const InstitutionsTable = () => {
   useEffect(() => {
     const getTeamsData = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/v1/teams`, {
+        const res = await axios.get(`${BASE_URL}/api/v1/${props.category}`, {
           headers: {
             "Authorization": `Bearer ${sessionStorage.getItem("token")}`
           }
@@ -24,15 +24,22 @@ const InstitutionsTable = () => {
     getTeamsData()
   }, [])
 
-  console.log(data)
+  console.log(props.fields)
 
-  const displayTeamsData = (
+  const displayFields = (
+    props.fields.map((f) => {
+      return (
+        <th>{f}</th>
+      )
+    })
+
+  )
+
+  const displayData = (
     data.map((d) => {
       return (
         <tr key={d._id}>
-          <td>{d.name}</td>
-          <td>{d.city}</td>
-          <td>{d.conference}</td>
+          {props.fields.map(f => <td>{d[f]}</td>)}
         </tr>
       )
     })
@@ -42,16 +49,14 @@ const InstitutionsTable = () => {
     <Table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>City</th>
-          <th>Division</th>
+          {displayFields}
         </tr>
       </thead>
       <tbody>
-        {displayTeamsData}
+        {displayData}
       </tbody>
     </Table>
   );
 };
 
-export default InstitutionsTable;
+export default DataTable;
