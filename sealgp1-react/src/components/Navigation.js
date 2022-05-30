@@ -59,6 +59,9 @@ const Navigation = () => {
         <NavLink href="/teams">Teams</NavLink>
       </NavItem>
       <NavItem>
+        <NavLink href="/players">Players</NavLink>
+      </NavItem>
+      <NavItem>
         <NavLink onClick={logout} style={{ cursor: "pointer" }}>
           Logout
         </NavLink>
@@ -74,8 +77,8 @@ const Navigation = () => {
     <></>
   );
 
-  const teamFields = ["name", "city", "conference", "division", "stadium"]
-  const playerFields = []
+  const teamFields = ["name", "city", "conference", "division", "stadium", "coach"]
+  const playerFields = ["firstName", "lastName", "position", "age", "team"]
 
   return (
     <Router>
@@ -93,6 +96,7 @@ const Navigation = () => {
           <Route path="/login" element={<LoginForm login={login} />} />
           {authResources}
           <Route path="/teams" element={<DataTable fields={teamFields} category = {"teams"}/>} />
+          <Route path="/players" element={<DataTable fields={playerFields} category = {"players"}/>} />
         </Routes>
       </Container>
     </Router>
