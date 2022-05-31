@@ -31,9 +31,15 @@ const DataTable = (props) => {
 
   const displayFields = (
     props.fields.map((f) => {
-      return (
-        <th>{f}</th>
-      )
+      if (f === "edit") {
+        return " "
+      }
+      else {
+        return (
+          <th>{f}</th>
+        )
+      }
+
     })
 
   )

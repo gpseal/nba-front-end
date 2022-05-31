@@ -4,7 +4,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EditTeamForm from "../forms/EditTeamForm";
 
-const EditTeam = (props) => {
+const EditPlayer = (props) => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
 
   const [data, setData] = useState([])
@@ -33,4 +33,4 @@ const EditTeam = (props) => {
   
 };
 
-export default EditTeam;
+export default EditPlayer;

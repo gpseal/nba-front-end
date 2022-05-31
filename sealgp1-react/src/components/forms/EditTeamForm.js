@@ -30,7 +30,7 @@ const EditTeamForm = (props) => {
     setConference(props.data.conference)
   }, [])
 
-  console.log(data.name)
+  console.log(props.data.name)
 
 
   const loginUser = async () => {
@@ -71,13 +71,6 @@ const EditTeamForm = (props) => {
   }
 
   const teamName = data.name;
-
-
-  // setName(data.name)
-  // setCity(data.city)
-  // setStadium(data.stadium)
-  // setDivision(data.division)
-  // setConference(data.conference)
 
 
   return (
@@ -137,13 +130,12 @@ const EditTeamForm = (props) => {
           <Input
             type="text"
             name="conference"
-            defaultValue={conference.toString()}
+            defaultValue={conference}
             onChange={(e) => setConference(e.target.value)}
             required
           />
         </FormGroup>
-
-
+        
         {/* 
           Display an alert message if there is either an authentication or network error
         */}
