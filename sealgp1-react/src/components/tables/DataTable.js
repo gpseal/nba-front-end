@@ -13,7 +13,7 @@ const DataTable = (props) => {
   useEffect(() => {
     const getTeamsData = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/v1/${props.category}?limit=20`, {
+        const res = await axios.get(`${BASE_URL}/api/v1/${props.category}?limit=5`, {
           headers: {
             "Authorization": `Bearer ${sessionStorage.getItem("token")}`
           }
@@ -26,8 +26,8 @@ const DataTable = (props) => {
     }
     getTeamsData()
   }, [])
-
   console.log(props.fields)
+  console.log(data)
 
   const displayFields = (
     props.fields.map((f) => {
@@ -43,30 +43,45 @@ const DataTable = (props) => {
       return (
         <tr key={d._id}>
           {props.fields.map((f) => {
-            if (f === "edit") {
-              return <td><EditButton /></td>
+            switch (f) {
+              case "edit":
+                return <td><EditButton /></td>
+                break;
+              case "coach":
+                return <td>{`${d[f].firstName} ${d[f].lastName}`}</td>
+                break;           
+              case "team":
+                return <td>{d[f].name}</td>
+                break; 
+              default:
+                return <td>{d[f]}</td>
+                break;
             }
-            else if (d[f].length === 24 && !/\s/.test(d[f])) {
-              switch (f) {
-                case "team":
-                  return (
-                    <td><GetName id={d[f]} category={"teams"}/></td>
-                  )
-                  break;
+            // if (f === "edit") {
+            //   return <td><EditButton /></td>
+            // }
+            // else if (f === Array) {
+            //   return <td>array</td>
+            //   // switch (f) {
+            //   //   case "team":
+            //   //     return (
+            //   //       <td><GetName id={d[f]} category={"teams"}/></td>
+            //   //     )
+            //   //     break;
 
-                  case "coach":
-                    return (
-                      <td><GetName id={d[f]} category={"coaches"}/></td>
-                    )
-                    break;
-                default:
-                  break;
-              }
-            }
-            else
-            return (
-            <td>{d[f]}</td>
-          )
+            //   //     case "coach":
+            //   //       return (
+            //   //         <td>dsfsddf</td>
+            //   //       )
+            //   //       break;
+            //   //   default:
+            //   //     break;
+            //   // }
+            // }
+            // else
+            // return (
+            // <td>{d[f]}</td>
+          // )
     })}
           {/* {props.fields.map((f) => {<td>{d[f]}</td>)} */}
         </tr>
