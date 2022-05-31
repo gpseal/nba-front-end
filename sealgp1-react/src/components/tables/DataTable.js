@@ -3,6 +3,7 @@ import axios from "axios";
 import { Table } from "reactstrap";
 import GetName from "../getData/GetName";
 import mongoose from 'mongoose';
+import EditButton from "../buttons/EditButton";
 
 const DataTable = (props) => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
@@ -41,29 +42,31 @@ const DataTable = (props) => {
     data.map((d) => {
       return (
         <tr key={d._id}>
-              {props.fields.map((f) => {
-                console.log(d[f])
-                if (d[f].length === 24 && !/\s/.test(d[f])) {
-                  switch (f) {
-                    case "team":
-                      return (
-                        <td><GetName id={d[f]} category={"teams"}/></td>
-                      )
-                      break;
-                      case "coach":
-                        return (
-                          <td><GetName id={d[f]} category={"coaches"}/></td>
-                        )
-                        break;
-                    default:
-                      break;
-                  }
+          {props.fields.map((f) => {
+            if (f === "edit") {
+              return <td><EditButton /></td>
+            }
+            else if (d[f].length === 24 && !/\s/.test(d[f])) {
+              switch (f) {
+                case "team":
+                  return (
+                    <td><GetName id={d[f]} category={"teams"}/></td>
+                  )
+                  break;
 
-                }
-                else
-                return (
-                <td>{d[f]}</td>
-              )
+                  case "coach":
+                    return (
+                      <td><GetName id={d[f]} category={"coaches"}/></td>
+                    )
+                    break;
+                default:
+                  break;
+              }
+            }
+            else
+            return (
+            <td>{d[f]}</td>
+          )
     })}
           {/* {props.fields.map((f) => {<td>{d[f]}</td>)} */}
         </tr>
