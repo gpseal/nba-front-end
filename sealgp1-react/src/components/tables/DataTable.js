@@ -45,7 +45,7 @@ const DataTable = (props) => {
           {props.fields.map((f) => {
             switch (f) {
               case "edit":
-                return <td><EditButton /></td>
+                return <td><EditButton category={props.category} id={d._id} data={"test"}/></td>
                 break;
               case "coach":
                 return <td>{`${d[f].firstName} ${d[f].lastName}`}</td>

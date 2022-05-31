@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Alert, Button, Form, FormGroup, Input } from "reactstrap";
 import { Navigate } from "react-router-dom";
 
-const LoginForm = (props) => {
+const EditCoachForm = (props) => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
 
   const [email, setEmail] = useState("");
@@ -49,13 +49,8 @@ const LoginForm = (props) => {
 
   return (
     <>
-      <h1 style={{ marginTop: "10px" }}>Login</h1>
-      {/* 
-        When the form is submitted, it will call the handleSubmit 
-        function above. You do not need to worry about specifying
-        a method and action as you would typically do when dealing 
-        with forms
-      */}
+      <h1 style={{ marginTop: "10px" }}>Edit Coach</h1>
+
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Input
@@ -103,4 +98,4 @@ const LoginForm = (props) => {
   );
 };
 
-export default LoginForm;
+export default EditCoachForm;

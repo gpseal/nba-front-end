@@ -5,10 +5,10 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './EditButton.css'
 
-const EditButton = () => {
+const EditButton = (props) => {
 
     return (
-        <Link style={{backgroundColor: 'red', color: 'pink'}} to={"/"}>EDIT</Link>
+        <Link data={"props.data"} style={{backgroundColor: 'red', color: 'pink'}} to={`/${props.category}/edit/${props.id}`}>EDIT</Link>
     )
   };
   

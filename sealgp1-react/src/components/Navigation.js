@@ -14,6 +14,9 @@ import {
 import LoginForm from "./forms/LoginForm";
 import InstitutionsTable from "./tables/InstitutionsTable";
 import DataTable from "./tables/DataTable";
+import EditPlayerForm from "./forms/EditPlayerForm";
+import EditCoachForm from "./forms/EditCoachForm";
+import EditTeamForm from "./forms/EditTeamForm";
 
 const Navigation = () => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
@@ -102,6 +105,9 @@ const Navigation = () => {
           <Route path="/teams" element={<DataTable fields={teamFields} category = {"teams"}/>} />
           <Route path="/players" element={<DataTable fields={playerFields} category = {"players"}/>} />
           <Route path="/coaches" element={<DataTable fields={coachFields} category = {"coaches"}/>} />
+          <Route path="/players/edit/:id" element={<EditPlayerForm />} />
+          <Route path="/coaches/edit/:id" element={<EditCoachForm />} />
+          <Route path="/teams/edit/:id" element={<EditTeamForm />} />
         </Routes>
       </Container>
     </Router>
