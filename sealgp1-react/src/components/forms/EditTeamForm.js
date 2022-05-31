@@ -23,25 +23,11 @@ const EditTeamForm = (props) => {
   const { id } = useParams()
 
   useEffect(() => {
-    const getTeamData = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/api/v1/teams/${id}`, {
-          headers: {
-            "Authorization": `Bearer ${sessionStorage.getItem("token")}`
-          }
-        })
-
-        setData(res.data.data)
-      } catch (error) {
-        console.log(error)
-      }   
-    }
-    getTeamData()
-    setName(data.name)
-    setCity(data.city)
-    setStadium(data.stadium)
-    setDivision(data.division)
-    setConference(data.conference)
+    setName(props.data.name)
+    setCity(props.data.city)
+    setStadium(props.data.stadium)
+    setDivision(props.data.division)
+    setConference(props.data.conference)
   }, [])
 
   console.log(data.name)
