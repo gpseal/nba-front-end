@@ -21,12 +21,21 @@ const EditTeamForm = (props) => {
 
   // const { id } = useParams()
 
+  console.log("id"+props.id)
+  
   useEffect(() => {
-    setName(props.data.name)
-    setCity(props.data.city)
-    setStadium(props.data.stadium)
-    setDivision(props.data.division)
-    setConference(props.data.conference)
+    if (props.id === "") {
+      console.log("no ID")
+    }
+    else{
+      console.log("has ID")
+      setName(props.data.name)
+      setCity(props.data.city)
+      setStadium(props.data.stadium)
+      setDivision(props.data.division)
+      setConference(props.data.conference)
+    }
+
   }, [])
 
   console.log(props.data.name)
@@ -35,7 +44,7 @@ const EditTeamForm = (props) => {
   const updateTeam = async () => {
 
     try {
-      const res = await axios.put(`${BASE_URL}/api/v1/teams/${props.id}`, {
+      const res = await axios.put(`${BASE_URL}/api/v1/teams${props.id}`, {
         name: name,
         city: city,
         stadium: stadium,
@@ -81,7 +90,7 @@ const EditTeamForm = (props) => {
   return (
     <>
     <button className="button" style={{ float: 'right', marginTop: '10px'}} onClick={() => navigate(-1)}>X</button>
-    <h1 style={{ marginTop: "10px" }}>Edit Team</h1>
+    <h1 style={{ marginTop: "10px" }}>{`${props.action} Team`}</h1>
  
       <Form onSubmit={handleSubmit}>
         <FormGroup>
