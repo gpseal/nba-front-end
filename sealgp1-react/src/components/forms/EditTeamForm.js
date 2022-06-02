@@ -1,13 +1,12 @@
 import axios from "axios";
 import { Alert, Button, Form, FormGroup, Input } from "reactstrap";
 import {Link, Routes, Route, useNavigate} from 'react-router-dom';
-
 import { useEffect, useState } from "react";
+import './Forms.css'
+
 
 const EditTeamForm = (props) => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
-
-    const [email, setEmail] = useState("");
 
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
@@ -15,7 +14,6 @@ const EditTeamForm = (props) => {
   const [division, setDivision] = useState("");
   const [conference, setConference] = useState("");
 
-  const [isHome, setIsHome] = useState(false);
   const [authError, setAuthError] = useState(false); // Used for authentication errors
   const [unknownError, setUnknownError] = useState(false); // Used for network errors
 
@@ -47,15 +45,8 @@ const EditTeamForm = (props) => {
       { headers: {
         "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },}
-
-      
       );
 
-      // if (res.status === 201) {
-      //   props.login();
-      //   setIsHome(true);
-      //   sessionStorage.setItem("token", res.data.token)
-      // }
     } catch (error) {
       console.log(error);
 
@@ -72,11 +63,25 @@ const EditTeamForm = (props) => {
     updateTeam();
   };
   
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //for going back a page (on exit)
+
+  const validateEmail = (e) => {
+    const emailRex = "SouthWest";
+    const { validate } = this.state;
+
+    if (emailRex.test(e.target.value)) {
+      validate.emailState = 'has-success';
+    } else {
+      validate.emailState = 'has-danger';
+    }
+
+    this.setState({ validate });
+  }
 
   return (
     <>
-      <h1 style={{ marginTop: "10px" }}>Edit Team</h1>
+    <button className="button" style={{ float: 'right', marginTop: '10px'}} onClick={() => navigate(-1)}>X</button>
+    <h1 style={{ marginTop: "10px" }}>Edit Team</h1>
  
       <Form onSubmit={handleSubmit}>
         <FormGroup>
@@ -122,7 +127,10 @@ const EditTeamForm = (props) => {
             type="text"
             name="division"
             value={division}
-            onChange={(e) => setDivision(e.target.value)}
+            onChange={(e) => {
+              validateEmail(e);
+              setDivision(e.target.value)}
+            }
             required
           />
         </FormGroup>
@@ -147,12 +155,11 @@ const EditTeamForm = (props) => {
         ) : null}
         {unknownError ? (
           <Alert color="danger">
-            There was a problem submitting your credentials.
+            There was a problem submitting your data.
           </Alert>
         ) : null}
-        <Button>Submit</Button>
+        <Button className="button" >Submit</Button>
 
-        <button onClick={() => navigate(-1)}>Go back</button>
       </Form>
     </>
   );
