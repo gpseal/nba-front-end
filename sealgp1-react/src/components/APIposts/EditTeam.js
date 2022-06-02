@@ -12,22 +12,22 @@ const EditTeam = (props) => {
   const { id } = useParams()
 
   useEffect(() => {
-    const getTeamData = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/api/v1/teams/${id}`, {
-          headers: {
-            "Authorization": `Bearer ${sessionStorage.getItem("token")}`
-          }
-        })
-        setData(await res.data.data)
-      } catch (error) {
-        console.log(error)
-      }   
-    }
-    getTeamData()
+    // const getTeamData = async () => {
+    //   try {
+    //     const res = await axios.get(`${BASE_URL}/api/v1/teams/${id}`, {
+    //       headers: {
+    //         "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+    //       }
+    //     })
+    //     setData(await res.data.data)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }   
+    // }
+    // getTeamData()
   }, [])
 
-  console.log(data.name)
+  console.log(id)
   //waits for data.name to have loaded before rendering
   return data.name ? <EditTeamForm id = {id} data={data}/> : <div>Loading....</div> 
   

@@ -128,7 +128,7 @@ const EditTeamForm = (props) => {
             name="division"
             value={division}
             onChange={(e) => {
-              validateEmail(e);
+              // validateEmail(e);
               setDivision(e.target.value)}
             }
             required

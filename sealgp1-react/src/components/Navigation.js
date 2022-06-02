@@ -17,6 +17,7 @@ import DataTable from "./tables/DataTable";
 import EditTeam from "./APIposts/EditTeam";
 import EditCoach from "./APIposts/EditCoach";
 import EditPlayer from "./APIposts/EditPlayer";
+import UpdateData from "./APIposts/Update";
 
 const Navigation = () => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
@@ -105,9 +106,9 @@ const Navigation = () => {
           <Route path="/teams" element={<DataTable fields={teamFields} category = {"teams"}/>} />
           <Route path="/players" element={<DataTable fields={playerFields} category = {"players"}/>} />
           <Route path="/coaches" element={<DataTable fields={coachFields} category = {"coaches"}/>} />
-          <Route path="/players/edit/:id" element={<EditPlayer />} />
-          <Route path="/coaches/edit/:id" element={<EditCoach />} />
-          <Route path="/teams/edit/:id" element={<EditTeam />} />
+          {/* <Route path="/players/edit/:id" element={<EditPlayer />} />
+          <Route path="/coaches/edit/:id" element={<EditCoach />} /> */}
+          <Route path="/edit/:id" element={<UpdateData />} />
         </Routes>
       </Container>
     </Router>

@@ -1,32 +1,52 @@
 import axios from "axios";
-import { useState } from "react";
 import { Alert, Button, Form, FormGroup, Input } from "reactstrap";
-import { Navigate } from "react-router-dom";
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
+import { useEffect, useState } from "react";
+import './Forms.css'
 
-const EditPlayerForm = (props) => {
+
+const EditTeamForm = (props) => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isHome, setIsHome] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  // const [city, setCity] = useState("");
+  // const [stadium, setStadium] = useState("");
+  // const [division, setDivision] = useState("");
+  // const [conference, setConference] = useState("");
+
   const [authError, setAuthError] = useState(false); // Used for authentication errors
   const [unknownError, setUnknownError] = useState(false); // Used for network errors
 
-  const loginUser = async () => {
-    setAuthError(false);
-    setUnknownError(false);
+  const [data, setData] = useState([])
+
+  // const { id } = useParams()
+
+  useEffect(() => {
+    setFirstName(props.data.firstName)
+    // setCity(props.data.city)
+    // setStadium(props.data.stadium)
+    // setDivision(props.data.division)
+    // setConference(props.data.conference)
+  }, [])
+
+  console.log(props.data.firstName)
+  console.log(props.id)
+
+  const updateTeam = async () => {
 
     try {
-      const res = await axios.post(`${BASE_URL}/api/v1/login`, {
-        email: email,
-        password: password,
-      });
+      const res = await axios.put(`${BASE_URL}/api/v1/players/${props.id}`, {
+        firstName: firstName,
+        // city: city,
+        // stadium: stadium,
+        // division: division,
+        // conference: conference
+      },
+      { headers: {
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+      },}
+      );
 
-      if (res.status === 201) {
-        props.login();
-        setIsHome(true);
-        sessionStorage.setItem("token", res.data.token)
-      }
     } catch (error) {
       console.log(error);
 
@@ -40,50 +60,43 @@ const EditPlayerForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginUser();
+    updateTeam();
   };
+  
+  const navigate = useNavigate(); //for going back a page (on exit)
 
-  if (isHome === true) {
-    return <Navigate to="/" />;
+  const validateEmail = (e) => {
+    const emailRex = "SouthWest";
+    const { validate } = this.state;
+
+    if (emailRex.test(e.target.value)) {
+      validate.emailState = 'has-success';
+    } else {
+      validate.emailState = 'has-danger';
+    }
+
+    this.setState({ validate });
   }
 
   return (
     <>
-      <h1 style={{ marginTop: "10px" }}>Edit Player</h1>
-      {/* 
-        When the form is submitted, it will call the handleSubmit 
-        function above. You do not need to worry about specifying
-        a method and action as you would typically do when dealing 
-        with forms
-      */}
+    <button className="button" style={{ float: 'right', marginTop: '10px'}} onClick={() => navigate(-1)}>X</button>
+    <h1 style={{ marginTop: "10px" }}>Edit Team</h1>
+ 
       <Form onSubmit={handleSubmit}>
+      
         <FormGroup>
+          <label>First Name</label>
           <Input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={email}
-            /*
-              This attribute detects when the value of an input element changes
-            */
-            onChange={(e) => setEmail(e.target.value)}
-            /*
-              You can fetch validation messages from the request. There are plenty 
-              of online resources that show you how to do this 
-            */
+            type="text"
+            name="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             required
           />
         </FormGroup>
-        <FormGroup>
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </FormGroup>
+        
+        
         {/* 
           Display an alert message if there is either an authentication or network error
         */}
@@ -94,13 +107,14 @@ const EditPlayerForm = (props) => {
         ) : null}
         {unknownError ? (
           <Alert color="danger">
-            There was a problem submitting your credentials.
+            There was a problem submitting your data.
           </Alert>
         ) : null}
-        <Button>Submit</Button>
+        <Button className="button" >Submit</Button>
+
       </Form>
     </>
   );
 };
 
-export default EditPlayerForm;
+export default EditTeamForm;
