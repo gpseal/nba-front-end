@@ -3,6 +3,7 @@ import { Alert, Button, Form, FormGroup, Input } from "reactstrap";
 import { Navigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EditTeamForm from "../forms/EditTeamForm";
+import EditPlayerForm from "../forms/EditPlayerForm";
 
 const EditPlayer = (props) => {
     const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
@@ -29,7 +30,8 @@ const EditPlayer = (props) => {
 
   console.log(data.name)
   //waits for data.name to have loaded before rendering
-  return data.name ? <EditTeamForm data={data}/> : <div>Loading....</div> 
+  // return data.name ? <EditTeamForm data={data}/> : <div>Loading....</div> 
+  return <EditPlayerForm />
   
 };
 

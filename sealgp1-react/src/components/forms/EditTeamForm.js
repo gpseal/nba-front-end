@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Alert, Button, Form, FormGroup, Input } from "reactstrap";
-import { Navigate, useParams } from "react-router-dom";
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
+
 import { useEffect, useState } from "react";
 
 const EditTeamForm = (props) => {
@@ -20,7 +21,7 @@ const EditTeamForm = (props) => {
 
   const [data, setData] = useState([])
 
-  const { id } = useParams()
+  // const { id } = useParams()
 
   useEffect(() => {
     setName(props.data.name)
@@ -31,25 +32,30 @@ const EditTeamForm = (props) => {
   }, [])
 
   console.log(props.data.name)
+  console.log(props.id)
 
-
-  const loginUser = async () => {
-    setAuthError(false);
-    setUnknownError(false);
-
-
+  const updateTeam = async () => {
 
     try {
-      const res = await axios.post(`${BASE_URL}/api/v1/login`, {
-        // email: email,
-        // password: password,
-      });
+      const res = await axios.put(`${BASE_URL}/api/v1/teams/${props.id}`, {
+        name: name,
+        city: city,
+        stadium: stadium,
+        division: division,
+        conference: conference
+      },
+      { headers: {
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+      },}
 
-      if (res.status === 201) {
-        props.login();
-        setIsHome(true);
-        sessionStorage.setItem("token", res.data.token)
-      }
+      
+      );
+
+      // if (res.status === 201) {
+      //   props.login();
+      //   setIsHome(true);
+      //   sessionStorage.setItem("token", res.data.token)
+      // }
     } catch (error) {
       console.log(error);
 
@@ -63,15 +69,10 @@ const EditTeamForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginUser();
+    updateTeam();
   };
-
-  if (isHome === true) {
-    return <Navigate to="/" />;
-  }
-
-  const teamName = data.name;
-
+  
+  const navigate = useNavigate();
 
   return (
     <>
@@ -150,6 +151,8 @@ const EditTeamForm = (props) => {
           </Alert>
         ) : null}
         <Button>Submit</Button>
+
+        <button onClick={() => navigate(-1)}>Go back</button>
       </Form>
     </>
   );

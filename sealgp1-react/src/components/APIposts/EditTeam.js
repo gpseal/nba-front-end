@@ -29,7 +29,7 @@ const EditTeam = (props) => {
 
   console.log(data.name)
   //waits for data.name to have loaded before rendering
-  return data.name ? <EditTeamForm data={data}/> : <div>Loading....</div> 
+  return data.name ? <EditTeamForm id = {id} data={data}/> : <div>Loading....</div> 
   
 };
 
