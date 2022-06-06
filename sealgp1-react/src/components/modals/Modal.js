@@ -5,6 +5,16 @@ import EditTeamForm from "../forms/EditTeamForm";
 import EditPlayerForm from "../forms/EditPlayerForm";
 import './ModalCSS.css'
 
+const buttonStyle = {
+  filter: 'brightness(0.4)',
+  color: 'white',
+  textDecoration: 'none',
+  padding: '3px 15px',
+  transition: '0.3s',
+  borderRadius: '3px',
+  border: 'none'
+};
+
 const ModalForm = (props) => {
   const [modal, setModal] = useState(false);
 
@@ -27,7 +37,9 @@ const ModalForm = (props) => {
   if (label === "Edit") {
     button = (
       <Button
-        className="button"
+        color="secondary"
+        // style={buttonStyle}
+        // className="button"
         onClick={toggle}
         style={{ float: "left", marginRight: "10px" }}
       >

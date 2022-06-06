@@ -6,12 +6,24 @@ import mongoose from 'mongoose';
 import EditButton from "../buttons/EditButton";
 import UpdateButton from "../buttons/UpdateButton";
 import ModalForm from "../modals/Modal";
-import '../modals/ModalCSS.css'
+// import '../modals/ModalCSS.css'
+import '../tables/Table.css'
+
+const buttonStyle = {
+  color: 'white',
+  textDecoration: 'none',
+  padding: '3px 15px',
+  transition: '0.3s',
+  borderRadius: '3px',
+  border: 'none'
+};
 
 const DataTable = (props) => {
   const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
 
   const [resources, setResources] = useState([])
+
+  const [pageNum, setPageNum] = useState(1)
 
   const createResource = (resource) => {
     setResources([...resources, resource]); //what do the three dots mean?
@@ -53,7 +65,7 @@ const DataTable = (props) => {
 
   const getData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/v1/${props.category}?limit=5`, {
+      const res = await axios.get(`${BASE_URL}/api/v1/${props.category}?limit=0`, {
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         }
@@ -102,9 +114,11 @@ const DataTable = (props) => {
                 updateResource={updateResource}
                 category={props.category}
               />
-                  <Button 
-                  className="deleteButton"
-                  color="red" onClick={() => deleteResource(d._id)}>
+                <Button 
+                // style={buttonStyle}
+                className="deleteButton"
+                color="danger"
+                onClick={() => deleteResource(d._id)}>
                   Delete
                 </Button>
               </td>
@@ -159,6 +173,7 @@ const DataTable = (props) => {
     })
   )
   const label = `Add ${props.category}`
+  console.log(displayData)
 
   return (
     <>
@@ -174,6 +189,12 @@ const DataTable = (props) => {
       {/* <EditButton category={props.category} id={ "none" }/> */}
     </Table>
     <ModalForm buttonLabel={label} createResource={createResource} />
+    <Button 
+                  className="button"
+                  color="red" onClick={() => {setPageNum(pageNum + 1);
+                    getData()}}>
+                  Next
+                </Button>
     </>
   );
 };

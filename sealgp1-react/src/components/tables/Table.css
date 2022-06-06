@@ -1,5 +1,5 @@
 .button {
-    background-color: pink;
+    background-color: slategray;
     color: white;
     text-decoration: none;
     padding: 3px 15px;
@@ -9,7 +9,7 @@
   }
 
 .button:hover{
-  background-color: darkslategray;
+  background-color: pink;
   color: white;
 }
 
@@ -24,6 +24,6 @@
 }
 
 .deleteButton:hover{
-background-color: green;
+background-color: black;
 color: white;
 }
