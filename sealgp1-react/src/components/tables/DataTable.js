@@ -69,7 +69,7 @@ const DataTable = (props) => {
   }, [])
 
   // console.log(props.fields)
-  console.log(resources)
+  // console.log(resources)
 
   const displayFields = (
     props.fields.map((f) => {
@@ -93,6 +93,7 @@ const DataTable = (props) => {
           {props.fields.map((f) => {
             switch (f) {
               case "edit":
+                console.log(d)
                 return <td>
                 <ModalForm
                 buttonLabel="Edit"
@@ -102,7 +103,6 @@ const DataTable = (props) => {
               </td>
                 break;
               case "coach":
-                console.log("test")
                 if (d[f]) {
                   return <td>{`${d[f].firstName} ${d[f].lastName}`}</td>
                 }
@@ -110,7 +110,11 @@ const DataTable = (props) => {
                 
                 break;           
               case "team":
-                return <td>{d[f].name}</td>
+                if (d[f]) {
+                  return <td>{d[f].name}</td>
+                }
+                else return <td>n/a</td>
+                // return <td>{d[f].name}</td>
                 break; 
               default:
                 return <td>{d[f]}</td>

@@ -5,7 +5,9 @@ import axios from "axios";
 const EditTeamForm = (props) => {
   const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
 
-  const team = props.team;
+  const team = props.data;
+
+  console.log("here")
 
   const [form, setForm] = useState(
     !team ?
