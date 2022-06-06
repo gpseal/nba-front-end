@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Table } from "reactstrap";
+import { Table, Button, Alert } from "reactstrap";
 import GetName from "../getData/GetName";
 import mongoose from 'mongoose';
 import EditButton from "../buttons/EditButton";
 import UpdateButton from "../buttons/UpdateButton";
 import ModalForm from "../modals/Modal";
+import '../modals/ModalCSS.css'
 
 const DataTable = (props) => {
   const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
@@ -28,22 +29,22 @@ const DataTable = (props) => {
     setResources(newArray);
   };
 
-  const deleteResource = (_id) => {
+  const deleteResources = (_id) => {
     const updatedItems = resources.filter((team) => team._id !== _id);
     setResources(updatedItems);
   };
 
-  const deleteTeam = async (_id) => {
-    let confirmDelete = window.confirm(`Are you sure you want to delete team: ${_id} ?`)
+  const deleteResource = async (_id) => {
+    let confirmDelete = window.confirm(`Are you sure you want to delete item: ${_id} ?`)
     if (confirmDelete) {
       try {
-        const res = axios.delete(`${BASE_URL}/api/v1/teams/${_id}`, {
+        const res = axios.delete(`${BASE_URL}/api/v1/${props.category}/${_id}`, {
           headers: {
             "authorization": `Bearer ${sessionStorage.getItem("token")}`
           }
         })
-        if (res.status === 200) alert("Team deleted successfully");
-        deleteResource(_id);
+        if (res.status === 200) alert("Item deleted successfully");
+        deleteResources(_id);
       } catch (error) {
         console.log(error)
       }
@@ -101,6 +102,11 @@ const DataTable = (props) => {
                 updateResource={updateResource}
                 category={props.category}
               />
+                  <Button 
+                  className="deleteButton"
+                  color="red" onClick={() => deleteResource(d._id)}>
+                  Delete
+                </Button>
               </td>
                 break;
               case "coach":

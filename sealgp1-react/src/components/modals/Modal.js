@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 // import AddEditTeamForm from "../forms/AddEditTeamForm";
 import EditTeamForm from "../forms/EditTeamForm";
 import EditPlayerForm from "../forms/EditPlayerForm";
+import './ModalCSS.css'
 
 const ModalForm = (props) => {
   const [modal, setModal] = useState(false);
@@ -26,7 +27,7 @@ const ModalForm = (props) => {
   if (label === "Edit") {
     button = (
       <Button
-        color="warning"
+        className="button"
         onClick={toggle}
         style={{ float: "left", marginRight: "10px" }}
       >
@@ -70,7 +71,7 @@ const ModalForm = (props) => {
   } else {
     button = (
       <Button
-        color="success"
+        className="button"
         onClick={toggle}
         style={{ float: "left", marginRight: "10px" }}
       >

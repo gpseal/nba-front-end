@@ -1,0 +1,29 @@
+.button {
+    background-color: slategray;
+    color: white;
+    text-decoration: none;
+    padding: 3px 15px;
+    transition: 0.3s;
+    border-radius: 3px;
+    border: none;
+  }
+
+.button:hover{
+  background-color: darkslategray;
+  color: white;
+}
+
+.deleteButton {
+  background-color: rgb(199, 15, 49);
+  color: white;
+  text-decoration: none;
+  padding: 3px 15px;
+  transition: 0.3s;
+  border-radius: 3px;
+  border: none;
+}
+
+.deleteButton:hover{
+background-color: black;
+color: white;
+}
