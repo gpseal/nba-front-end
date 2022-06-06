@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 // import AddEditTeamForm from "../forms/AddEditTeamForm";
 import EditTeamForm from "../forms/EditTeamForm";
+import EditPlayerForm from "../forms/EditPlayerForm";
 
 const ModalForm = (props) => {
   const [modal, setModal] = useState(false);
@@ -14,7 +15,7 @@ const ModalForm = (props) => {
     </Button>
   );
 
-  console.log(props.data)
+  console.log(props.category)
 
   const label = props.buttonLabel;
 
@@ -34,15 +35,37 @@ const ModalForm = (props) => {
     );
 
     if (props.data) {
-      submitForm = (
-        <EditTeamForm
-          label={label}
-          createResource={props.createResource}
-          updateResource={props.updateResource}
-          toggle={toggle}
-          data={props.data}
-        />
-      );
+        switch (props.category) {
+            case "teams":
+                submitForm = (
+                    <EditTeamForm
+                      label={label}
+                      category={props.category}
+                      createResource={props.createResource}
+                      updateResource={props.updateResource}
+                      toggle={toggle}
+                      data={props.data}
+                    />
+                  );
+                break;
+            
+            case "players":
+                submitForm = (
+                    <EditPlayerForm
+                      label={label}
+                      category={props.category}
+                      createResource={props.createResource}
+                      updateResource={props.updateResource}
+                      toggle={toggle}
+                      data={props.data}
+                    />
+                  );
+                break;
+        
+            default:
+                break;
+        }
+
     }
   } else {
     button = (
@@ -55,15 +78,31 @@ const ModalForm = (props) => {
       </Button>
     );
 
-    if (label === "Add Team") {
-      title = "Add New Team";
-      submitForm = (
-        <EditTeamForm
-          createResource={props.createResource}
-          toggle={toggle}
-        />
+    switch (label) {
+      case "Add teams":
+        title = "Add New Team";
+        submitForm = (
+          <EditTeamForm
+              category={props.category}
+              createResource={props.createResource}
+              toggle={toggle}
+          />
       );
+        break;
+      case "Add players":
+        title = "Add New Player";
+        submitForm = (
+          <EditPlayerForm
+              category={props.category}
+              createResource={props.createResource}
+              toggle={toggle}
+          />
+      );
+    
+      default:
+        break;
     }
+
   }
 
   return (

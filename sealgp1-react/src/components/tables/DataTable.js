@@ -99,6 +99,7 @@ const DataTable = (props) => {
                 buttonLabel="Edit"
                 data={d}
                 updateResource={updateResource}
+                category={props.category}
               />
               </td>
                 break;
@@ -151,6 +152,7 @@ const DataTable = (props) => {
       )
     })
   )
+  const label = `Add ${props.category}`
 
   return (
     <>
@@ -165,7 +167,7 @@ const DataTable = (props) => {
       </tbody>
       {/* <EditButton category={props.category} id={ "none" }/> */}
     </Table>
-    <ModalForm buttonLabel="Add Team" createResource={createResource} />
+    <ModalForm buttonLabel={label} createResource={createResource} />
     </>
   );
 };
