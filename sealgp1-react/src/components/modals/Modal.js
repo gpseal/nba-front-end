@@ -83,7 +83,6 @@ const ModalForm = (props) => {
   } else {
     button = (
       <Button
-        className="button"
         onClick={toggle}
         style={{ float: "left", marginRight: "10px" }}
       >

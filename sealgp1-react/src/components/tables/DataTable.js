@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import EditButton from "../buttons/EditButton";
 import UpdateButton from "../buttons/UpdateButton";
 import ModalForm from "../modals/Modal";
+import Pagination from "../Pagination";
 // import '../modals/ModalCSS.css'
 import '../tables/Table.css'
 
@@ -23,7 +24,12 @@ const DataTable = (props) => {
 
   const [resources, setResources] = useState([])
 
-  const [pageNum, setPageNum] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [dataPerPage, setDataPerPage] = useState(5)
+
+  // const [pageNum, setPageNum] = useState(1)
+
 
   const createResource = (resource) => {
     setResources([...resources, resource]); //what do the three dots mean?
@@ -87,16 +93,14 @@ const DataTable = (props) => {
   const displayFields = (
     props.fields.map((f) => {
       if (f === "edit") {
-        return " "
+        return ""
       }
       else {
         return (
           <th>{f}</th>
         )
       }
-
     })
-
   )
 
   const displayData = (
@@ -115,8 +119,6 @@ const DataTable = (props) => {
                 category={props.category}
               />
                 <Button 
-                // style={buttonStyle}
-                className="deleteButton"
                 color="danger"
                 onClick={() => deleteResource(d._id)}>
                   Delete
@@ -141,39 +143,23 @@ const DataTable = (props) => {
                 return <td>{d[f]}</td>
                 break;
             }
-            // if (f === "edit") {
-            //   return <td><EditButton /></td>
-            // }
-            // else if (f === Array) {
-            //   return <td>array</td>
-            //   // switch (f) {
-            //   //   case "team":
-            //   //     return (
-            //   //       <td><GetName id={d[f]} category={"teams"}/></td>
-            //   //     )
-            //   //     break;
-
-            //   //     case "coach":
-            //   //       return (
-            //   //         <td>dsfsddf</td>
-            //   //       )
-            //   //       break;
-            //   //   default:
-            //   //     break;
-            //   // }
-            // }
-            // else
-            // return (
-            // <td>{d[f]}</td>
-          // )
     })}
-          {/* {props.fields.map((f) => {<td>{d[f]}</td>)} */}
         </tr>
       )
     })
   )
+
+  //Button label for adding data
   const label = `Add ${props.category}`
-  console.log(displayData)
+
+  //Pagination setting content per page
+  const indexOfLastData = currentPage * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentData = displayData.slice(indexOfFirstData, indexOfLastData);
+
+  //Pagination setting page to display
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
 
   return (
     <>
@@ -184,17 +170,12 @@ const DataTable = (props) => {
         </tr>
       </thead>
       <tbody>
-        {displayData}
+        {currentData}
       </tbody>
       {/* <EditButton category={props.category} id={ "none" }/> */}
     </Table>
     <ModalForm buttonLabel={label} createResource={createResource} />
-    <Button 
-                  className="button"
-                  color="red" onClick={() => {setPageNum(pageNum + 1);
-                    getData()}}>
-                  Next
-                </Button>
+    <Pagination dataPerPage={dataPerPage} totalData={displayData.length} paginate={paginate}/>
     </>
   );
 };
