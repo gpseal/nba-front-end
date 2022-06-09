@@ -16,8 +16,18 @@ const EditPlayerForm = (props) => {
         firstName: "",
         lastName: "",
         position: "",
-        age: ""
-      } : player
+        age: "",
+        team: ""
+      } : 
+      {
+        _id: 0,
+        firstName: player.firstName,
+        lastName: player.lastName,
+        position: player.position,
+        age: player.age,
+        team: player.team._id
+      } 
+      
   );
 
   const label = props.label;
@@ -32,11 +42,12 @@ const EditPlayerForm = (props) => {
   const createForm = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${BASE_URL}/api/v1/teams`, {
+      const res = await axios.post(`${BASE_URL}/api/v1/players`, {
         firstName: form.firstName,
         lastName: form.lastName,
         position: form.position,
-        age: form.age
+        age: form.age,
+        team: form.team._id
       }, {
         headers: {
           "authorization": `Bearer ${sessionStorage.getItem("token")}`
@@ -61,7 +72,8 @@ const EditPlayerForm = (props) => {
           firstName: form.firstName,
           lastName: form.lastName,
           position: form.position,
-          age: form.age
+          age: form.age,
+          team: form.team._id
         }, {
         headers: {
           "authorization": `Bearer ${sessionStorage.getItem("token")}`
@@ -69,7 +81,7 @@ const EditPlayerForm = (props) => {
       }
       );
       if (res.status === 200) {
-        alert("Team updated successfully");
+        alert("Plyer updated successfully");
         form._id = player._id;
         props.updateResource(form);
         props.toggle();
@@ -115,6 +127,15 @@ const EditPlayerForm = (props) => {
           name="age"
           onChange={onChange}
           value={form.age === null ? "" : form.age}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label for="team">Team</Label>
+        <Input
+          type="text"
+          name="team"
+          onChange={onChange}
+          value={form.team === null ? "" : form.team}
         />
       </FormGroup>
 

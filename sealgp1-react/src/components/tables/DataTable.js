@@ -97,7 +97,7 @@ const DataTable = (props) => {
       }
       else {
         return (
-          <th>{f}</th>
+          <th>{f.charAt(0).toUpperCase() + f.replace(/[A-Z]/g, ' $&').trim().slice(1)}</th>
         )
       }
     })

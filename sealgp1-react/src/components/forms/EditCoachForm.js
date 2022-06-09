@@ -17,8 +17,18 @@ const EditCoachForm = (props) => {
         lastName: "",
         age: "",
         careerWins: "",
-        careerLosses: ""
-      } : coach
+        careerLosses: "",
+        team: ""
+      } :
+      {
+        _id: coach._id,
+        firstName: coach.firstName,
+        lastName: coach.lastName,
+        age: coach.age,
+        careerWins: coach.careerWins,
+        careerLosses: coach.careerLosses,
+        team: coach.team._id
+      }
   );
 
   const label = props.label;
@@ -33,11 +43,13 @@ const EditCoachForm = (props) => {
   const createForm = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${BASE_URL}/api/v1/teams`, {
+      const res = await axios.post(`${BASE_URL}/api/v1/coaches`, {
         firstName: form.firstName,
         lastName: form.lastName,
-        position: form.position,
-        age: form.age
+        age: form.age,
+        careerWins: form.careerWins,
+        careerLosses: form.careerLosses,
+        team: form.team
       }, {
         headers: {
           "authorization": `Bearer ${sessionStorage.getItem("token")}`
@@ -61,8 +73,10 @@ const EditCoachForm = (props) => {
         {
           firstName: form.firstName,
           lastName: form.lastName,
-          position: form.position,
-          age: form.age
+          age: form.age,
+          careerWins: form.careerWins,
+          careerLosses: form.careerLosses,
+          team: form.team
         }, {
         headers: {
           "authorization": `Bearer ${sessionStorage.getItem("token")}`
@@ -70,7 +84,7 @@ const EditCoachForm = (props) => {
       }
       );
       if (res.status === 200) {
-        alert("Team updated successfully");
+        alert("Coach updated successfully");
         form._id = coach._id;
         props.updateResource(form);
         props.toggle();
@@ -125,6 +139,15 @@ const EditCoachForm = (props) => {
           name="careerLosses"
           onChange={onChange}
           value={form.careerLosses === null ? "" : form.careerLosses}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label for="team">Team</Label>
+        <Input
+          type="text"
+          name="team"
+          onChange={onChange}
+          value={form.team === null ? "" : form.team}
         />
       </FormGroup>
 
