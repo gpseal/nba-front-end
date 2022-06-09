@@ -12,6 +12,7 @@ import {
   NavLink,
 } from "reactstrap";
 import LoginForm from "./forms/LoginForm";
+import RegistrationForm from "./forms/RegistrationForm";
 import InstitutionsTable from "./tables/InstitutionsTable";
 import DataTable from "./tables/DataTable";
 import EditTeam from "./APIposts/EditTeam";
@@ -116,6 +117,7 @@ const Navigation = () => {
       <Container>
         <Routes>
           <Route path="/login" element={<LoginForm login={login} />} />
+          <Route path="/register" element={<RegistrationForm />} />
           {authResources}
           <Route path="/edit/:id" element={<UpdateData />} />
         </Routes>
