@@ -103,6 +103,7 @@ const EditCoachForm = (props) => {
           name="firstName"
           onChange={onChange}
           value={form.firstName === null ? "" : form.firstName}
+          required
         />
       </FormGroup>
       <FormGroup>
@@ -112,6 +113,7 @@ const EditCoachForm = (props) => {
           name="lastName"
           onChange={onChange}
           value={form.lastName === null ? "" : form.lastName}
+          required
         />
       </FormGroup>
       <FormGroup>

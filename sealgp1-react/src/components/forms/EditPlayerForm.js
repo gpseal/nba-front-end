@@ -100,6 +100,7 @@ const EditPlayerForm = (props) => {
           name="firstName"
           onChange={onChange}
           value={form.firstName === null ? "" : form.firstName}
+          required
         />
       </FormGroup>
       <FormGroup>
@@ -109,6 +110,7 @@ const EditPlayerForm = (props) => {
           name="lastName"
           onChange={onChange}
           value={form.lastName === null ? "" : form.lastName}
+          required
         />
       </FormGroup>
       <FormGroup>

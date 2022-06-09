@@ -91,6 +91,7 @@ const EditTeamForm = (props) => {
           name="name"
           onChange={onChange}
           value={form.name === null ? "" : form.name}
+          required
         />
       </FormGroup>
       <FormGroup>
@@ -100,6 +101,7 @@ const EditTeamForm = (props) => {
           name="city"
           onChange={onChange}
           value={form.city === null ? "" : form.city}
+          required
         />
       </FormGroup>
       <FormGroup>
