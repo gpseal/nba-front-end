@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 // import AddEditTeamForm from "../forms/AddEditTeamForm";
 import EditTeamForm from "../forms/EditTeamForm";
 import EditPlayerForm from "../forms/EditPlayerForm";
+import EditCoachForm from "../forms/EditCoachForm";
 import './ModalCSS.css'
 
 const buttonStyle = {
@@ -74,6 +75,19 @@ const ModalForm = (props) => {
                     />
                   );
                 break;
+
+            case "coaches":
+              submitForm = (
+                  <EditCoachForm
+                    label={label}
+                    category={props.category}
+                    createResource={props.createResource}
+                    updateResource={props.updateResource}
+                    toggle={toggle}
+                    data={props.data}
+                  />
+                );
+              break;
         
             default:
                 break;
@@ -100,7 +114,8 @@ const ModalForm = (props) => {
               toggle={toggle}
           />
       );
-        break;
+      break;
+
       case "Add players":
         title = "Add New Player";
         submitForm = (
@@ -110,7 +125,19 @@ const ModalForm = (props) => {
               toggle={toggle}
           />
       );
-    
+      break;
+
+      case "Add coaches":
+        title = "Add New Coach";
+        submitForm = (
+          <EditCoachForm
+              category={props.category}
+              createResource={props.createResource}
+              toggle={toggle}
+          />
+      );
+      break;
+
       default:
         break;
     }

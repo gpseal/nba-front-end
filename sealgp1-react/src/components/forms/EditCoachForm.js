@@ -1,120 +1,138 @@
+import { useState } from "react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import axios from "axios";
-import { Alert, Button, Form, FormGroup, Input } from "reactstrap";
-import {Link, Routes, Route, useNavigate} from 'react-router-dom';
-import { useEffect, useState } from "react";
-import './Forms.css'
 
+const EditCoachForm = (props) => {
+  const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
 
-const EditTeamForm = (props) => {
-    const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
+  const coach = props.data;
 
-  const [firstName, setFirstName] = useState("");
-  // const [city, setCity] = useState("");
-  // const [stadium, setStadium] = useState("");
-  // const [division, setDivision] = useState("");
-  // const [conference, setConference] = useState("");
+  console.log("here")
 
-  const [authError, setAuthError] = useState(false); // Used for authentication errors
-  const [unknownError, setUnknownError] = useState(false); // Used for network errors
+  const [form, setForm] = useState(
+    !coach ?
+      {
+        _id: 0,
+        firstName: "",
+        lastName: "",
+        age: "",
+        careerWins: "",
+        careerLosses: ""
+      } : coach
+  );
 
-  const [data, setData] = useState([])
+  const label = props.label;
 
-  // const { id } = useParams()
-
-  useEffect(() => {
-    setFirstName(props.data.firstName)
-    // setCity(props.data.city)
-    // setStadium(props.data.stadium)
-    // setDivision(props.data.division)
-    // setConference(props.data.conference)
-  }, [])
-
-  console.log(props.data.firstName)
-  console.log(props.id)
-
-  const updateTeam = async () => {
-
-    try {
-      const res = await axios.put(`${BASE_URL}/api/v1/coaches/${props.id}`, {
-        firstName: firstName,
-        // city: city,
-        // stadium: stadium,
-        // division: division,
-        // conference: conference
-      },
-      { headers: {
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
-      },}
-      );
-
-    } catch (error) {
-      console.log(error);
-
-      if (error.response.status === 401) {
-        setAuthError(true);
-      } else {
-        setUnknownError(true);
-      }
-    }
+  const onChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = (e) => {
+  const createForm = async (e) => {
     e.preventDefault();
-    updateTeam();
-  };
-  
-  const navigate = useNavigate(); //for going back a page (on exit)
-
-  const validateEmail = (e) => {
-    const emailRex = "SouthWest";
-    const { validate } = this.state;
-
-    if (emailRex.test(e.target.value)) {
-      validate.emailState = 'has-success';
-    } else {
-      validate.emailState = 'has-danger';
+    try {
+      const res = await axios.post(`${BASE_URL}/api/v1/teams`, {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        position: form.position,
+        age: form.age
+      }, {
+        headers: {
+          "authorization": `Bearer ${sessionStorage.getItem("token")}`
+        }
+      });
+      if (res.status === 200) {
+        form._id = res.data.data[res.data.data.length - 1]._id
+        props.createResource(form);
+        props.toggle();
+      }
+    } catch (error) {
+      // Catch some error
     }
+  };
 
-    this.setState({ validate });
-  }
+  const updateForm = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.put(
+        `${BASE_URL}/api/v1/coaches/${coach._id}`,
+        {
+          firstName: form.firstName,
+          lastName: form.lastName,
+          position: form.position,
+          age: form.age
+        }, {
+        headers: {
+          "authorization": `Bearer ${sessionStorage.getItem("token")}`
+        }
+      }
+      );
+      if (res.status === 200) {
+        alert("Team updated successfully");
+        form._id = coach._id;
+        props.updateResource(form);
+        props.toggle();
+      }
+    } catch (error) {
+      // Catch some error
+    }
+  };
 
   return (
-    <>
-    <button className="button" style={{ float: 'right', marginTop: '10px'}} onClick={() => navigate(-1)}>X</button>
-    <h1 style={{ marginTop: "10px" }}>Edit Team</h1>
- 
-      <Form onSubmit={handleSubmit}>
-      
-        <FormGroup>
-          <label>First Name</label>
-          <Input
-            type="text"
-            name="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </FormGroup>
-        
-        
-        {/* 
-          Display an alert message if there is either an authentication or network error
-        */}
-        {authError ? (
-          <Alert color="danger">
-            Cannot recognize your credentials. Please try again.
-          </Alert>
-        ) : null}
-        {unknownError ? (
-          <Alert color="danger">
-            There was a problem submitting your data.
-          </Alert>
-        ) : null}
-        <Button className="button" >Submit</Button>
+    <Form onSubmit={label === "Edit" ? updateForm : createForm}>
+      <FormGroup>
+        <Label for="firstName">First Name</Label>
+        <Input
+          type="text"
+          name="firstName"
+          onChange={onChange}
+          value={form.firstName === null ? "" : form.firstName}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label for="lastName">Surname</Label>
+        <Input
+          type="text"
+          name="lastName"
+          onChange={onChange}
+          value={form.lastName === null ? "" : form.lastName}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label for="age">Age</Label>
+        <Input
+          type="text"
+          name="age"
+          onChange={onChange}
+          value={form.age === null ? "" : form.age}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label for="careerWins">Carer Wins</Label>
+        <Input
+          type="text"
+          name="careerWins"
+          onChange={onChange}
+          value={form.careerWins === null ? "" : form.careerWins}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label for="careerLosses">Career Losses</Label>
+        <Input
+          type="text"
+          name="careerLosses"
+          onChange={onChange}
+          value={form.careerLosses === null ? "" : form.careerLosses}
+        />
+      </FormGroup>
 
-      </Form>
-    </>
+      <span className="text-danger">{ }</span>
+      {" "}
+      <Button className="mt-3" color="primary">Submit</Button>
+    </Form>
   );
 };
 
-export default EditTeamForm;
+export default EditCoachForm;

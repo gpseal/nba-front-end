@@ -57,7 +57,7 @@ const Navigation = () => {
   const authLink = isLoggedIn ? (
     <>
       <NavItem>
-        <NavLink href="/institutions">Institutions</NavLink>
+        {/* <NavLink href="/institutions">Institutions</NavLink> */}
       </NavItem>
       <NavItem>
         <NavLink href="/teams">Teams</NavLink>
@@ -75,18 +75,32 @@ const Navigation = () => {
       </NavItem>
     </>
   ) : (
-    <NavLink href="/login">Login</NavLink>
-  );
-
-  const authResources = isLoggedIn ? (
-    <Route path="/institutions" element={<InstitutionsTable />} />
-  ) : (
-    <></>
+    <>
+    <NavItem>
+      <NavLink href="/register">Register</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink href="/login">Login</NavLink>
+    </NavItem>
+    </>
+    
   );
 
   const teamFields = ["name", "city", "conference", "division", "stadium", "coach", "edit"]
   const playerFields = ["firstName", "lastName", "position", "age", "team", "edit"]
   const coachFields = ["firstName", "lastName", "age", "careerWins", "careerLosses", "team", "edit"]
+
+  const authResources = isLoggedIn ? (
+    <>
+    <Route path="/teams" element={<DataTable fields={teamFields} category = {"teams"}/>} />
+    <Route path="/players" element={<DataTable fields={playerFields} category = {"players"}/>} />
+    <Route path="/coaches" element={<DataTable fields={coachFields} category = {"coaches"}/>} />
+    </>
+  ) : (
+    <></>
+  );
+
+
 
   return (
     <Router>
@@ -103,11 +117,6 @@ const Navigation = () => {
         <Routes>
           <Route path="/login" element={<LoginForm login={login} />} />
           {authResources}
-          <Route path="/teams" element={<DataTable fields={teamFields} category = {"teams"}/>} />
-          <Route path="/players" element={<DataTable fields={playerFields} category = {"players"}/>} />
-          <Route path="/coaches" element={<DataTable fields={coachFields} category = {"coaches"}/>} />
-          {/* <Route path="/players/edit/:id" element={<EditPlayer />} />
-          <Route path="/coaches/edit/:id" element={<EditCoach />} /> */}
           <Route path="/edit/:id" element={<UpdateData />} />
         </Routes>
       </Container>
