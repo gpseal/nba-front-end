@@ -82,6 +82,23 @@ const EditTeamForm = (props) => {
     }
   };
 
+  const divisions = ["Pacific", "Atlantic", "Northwest", "Southwest", "Central", "Southeast"];
+  const conferences = ["West", "East"]
+
+  const dropDownValues = (e, value) => {
+    if (!value) {
+      return (e.map((item) => <option>{item}</option>))
+    }
+    else {
+      return (e.filter(item => (item !== value)).map((item) => <option>{item}</option>))
+    }
+  }
+
+
+  console.log(form.division)
+  console.log(dropDownValues(divisions, form.division))
+  console.log(divisions.filter(item => item !== "Southwest"))
+
   return (
     <Form onSubmit={label === "Edit" ? updateForm : createForm}>
       <FormGroup>
@@ -116,21 +133,27 @@ const EditTeamForm = (props) => {
       <FormGroup>
         <Label for="division">Division</Label>
         <Input
-          type="text"
+          type="select"
           name="division"
           onChange={onChange}
-          value={form.division === null ? "" : form.division}
-        />
+          required>
+          <option>{form.division === null ? "" : form.division}</option>
+          {dropDownValues(divisions, form.division)}
+        </Input>
       </FormGroup>
+
       <FormGroup>
         <Label for="conference">Conference</Label>
         <Input
-          type="text"
+          type="select"
           name="conference"
           onChange={onChange}
-          value={form.conference === null ? "" : form.conference}
-        />
+          required>
+          <option>{form.conference === null ? "" : form.conference}</option>
+          {dropDownValues(conferences, form.conference)}
+        </Input>
       </FormGroup>
+      
 
       <span className="text-danger">{ }</span>
       {" "}
