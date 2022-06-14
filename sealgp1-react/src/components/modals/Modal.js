@@ -27,7 +27,7 @@ const ModalForm = (props) => {
     </Button>
   );
 
-  console.log(props.category)
+  // console.log(props.data)
 
   const label = props.buttonLabel;
 
@@ -72,6 +72,7 @@ const ModalForm = (props) => {
                       updateResource={props.updateResource}
                       toggle={toggle}
                       data={props.data}
+                      teamList={props.teamList}
                     />
                   );
                 break;
@@ -85,6 +86,7 @@ const ModalForm = (props) => {
                     updateResource={props.updateResource}
                     toggle={toggle}
                     data={props.data}
+                    teamList={props.teamList}
                   />
                 );
               break;

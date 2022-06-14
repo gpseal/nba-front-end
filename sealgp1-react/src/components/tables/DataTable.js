@@ -87,8 +87,10 @@ const DataTable = (props) => {
     getData()
   }, [])
 
+  const teamList = resources.map(t => t._id)
+
   // console.log(props.fields)
-  // console.log(resources)
+  // console.log(teamList)
 
   const displayFields = (
     props.fields.map((f) => {
@@ -110,13 +112,14 @@ const DataTable = (props) => {
           {props.fields.map((f) => {
             switch (f) {
               case "edit":
-                console.log(d)
+                // console.log(d)
                 return <td>
                 <ModalForm
                 buttonLabel="Edit"
                 data={d}
                 updateResource={updateResource}
                 category={props.category}
+                teamList={teamList}
               />
                 <Button 
                 color="danger"
@@ -174,7 +177,7 @@ const DataTable = (props) => {
       </tbody>
       {/* <EditButton category={props.category} id={ "none" }/> */}
     </Table>
-    <ModalForm buttonLabel={label} createResource={createResource} />
+    <ModalForm buttonLabel={label} createResource={createResource} teamList={teamList}/>
     <Pagination dataPerPage={dataPerPage} totalData={displayData.length} paginate={paginate}/>
     </>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import axios from "axios";
 
@@ -6,6 +6,25 @@ const EditCoachForm = (props) => {
   const BASE_URL = "https://id607001-sealgp1.herokuapp.com";
 
   const coach = props.data;
+
+  const [teamList, setTeamList] = useState([]); // State variables
+
+  const getTeams = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/api/v1/teams`, {
+        headers: {
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        }
+      })
+      setTeamList(res.data.data.map(x => x._id)); //getting existing team IDs for drop down menus
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getTeams();
+  }, []);
 
   console.log("here")
 
@@ -59,6 +78,7 @@ const EditCoachForm = (props) => {
         form._id = res.data.data[res.data.data.length - 1]._id
         props.createResource(form);
         props.toggle();
+        window.location.reload(false);
       }
     } catch (error) {
       // Catch some error
@@ -88,11 +108,16 @@ const EditCoachForm = (props) => {
         form._id = coach._id;
         props.updateResource(form);
         props.toggle();
+        window.location.reload(false);
       }
     } catch (error) {
       // Catch some error
     }
   };
+
+  const dropDownValues = (values) => {
+    return (values.map((item) => <option>{item}</option>))
+  }
 
   return (
     <Form onSubmit={label === "Edit" ? updateForm : createForm}>
@@ -141,15 +166,6 @@ const EditCoachForm = (props) => {
           name="careerLosses"
           onChange={onChange}
           value={form.careerLosses === null ? "" : form.careerLosses}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="team">Team</Label>
-        <Input
-          type="text"
-          name="team"
-          onChange={onChange}
-          value={form.team === null ? "" : form.team}
         />
       </FormGroup>
 

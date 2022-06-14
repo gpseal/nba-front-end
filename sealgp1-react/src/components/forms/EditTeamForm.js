@@ -74,28 +74,25 @@ const EditTeamForm = (props) => {
       if (res.status === 200) {
         alert("Team updated successfully");
         form._id = team._id;
-        props.updateResource(form);
         props.toggle();
+        props.updateResource(form);
       }
     } catch (error) {
       // Catch some error
     }
   };
 
+  //setting values for drop-down menus
   const divisions = ["Pacific", "Atlantic", "Northwest", "Southwest", "Central", "Southeast"];
   const conferences = ["West", "East"]
 
-  const dropDownValues = (e, value) => {
-    if (!value) {
-      return (e.map((item) => <option>{item}</option>))
+  const dropDownValues = (values) => {
+      return (values.map((item) => <option>{item}</option>))
     }
-    else {
-      return (e.filter(item => (item !== value)).map((item) => <option>{item}</option>))
-    }
-  }
+  
 
 
-  console.log(form.division)
+  console.log(props.teamList)
   console.log(dropDownValues(divisions, form.division))
   console.log(divisions.filter(item => item !== "Southwest"))
 
@@ -138,7 +135,7 @@ const EditTeamForm = (props) => {
           onChange={onChange}
           required>
           <option>{form.division === null ? "" : form.division}</option>
-          {dropDownValues(divisions, form.division)}
+          {dropDownValues(divisions)}
         </Input>
       </FormGroup>
 
@@ -150,7 +147,7 @@ const EditTeamForm = (props) => {
           onChange={onChange}
           required>
           <option>{form.conference === null ? "" : form.conference}</option>
-          {dropDownValues(conferences, form.conference)}
+          {dropDownValues(conferences)}
         </Input>
       </FormGroup>
       

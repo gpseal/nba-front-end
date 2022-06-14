@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import axios from "axios";
 
@@ -7,8 +8,6 @@ const EditPlayerForm = (props) => {
 
   const player = props.data;
 
-  console.log("here")
-
   const [form, setForm] = useState(
     !player ?
       {
@@ -16,16 +15,14 @@ const EditPlayerForm = (props) => {
         firstName: "",
         lastName: "",
         position: "",
-        age: "",
-        team: ""
+        age: ""
       } : 
       {
         _id: 0,
         firstName: player.firstName,
         lastName: player.lastName,
         position: player.position,
-        age: player.age,
-        team: player.team._id
+        age: player.age
       } 
       
   );
@@ -46,8 +43,7 @@ const EditPlayerForm = (props) => {
         firstName: form.firstName,
         lastName: form.lastName,
         position: form.position,
-        age: form.age,
-        team: form.team._id
+        age: form.age
       }, {
         headers: {
           "authorization": `Bearer ${sessionStorage.getItem("token")}`
@@ -72,8 +68,7 @@ const EditPlayerForm = (props) => {
           firstName: form.firstName,
           lastName: form.lastName,
           position: form.position,
-          age: form.age,
-          team: form.team._id
+          age: form.age
         }, {
         headers: {
           "authorization": `Bearer ${sessionStorage.getItem("token")}`
@@ -81,15 +76,27 @@ const EditPlayerForm = (props) => {
       }
       );
       if (res.status === 200) {
-        alert("Plyer updated successfully");
+        alert("Player updated successfully");
         form._id = player._id;
         props.updateResource(form);
         props.toggle();
+        window.location.reload(false);
       }
     } catch (error) {
       // Catch some error
     }
   };
+
+const positions = ["Center", "Power Forward", "Small Forward", "Point Guard", "Shooting Guard"]
+
+const dropDownValues = (values) => {
+  return (values.map((item) => <option>{item}</option>))
+}
+
+function refreshPage() {
+  window.location.reload(false);
+}
+
 
   return (
     <Form onSubmit={label === "Edit" ? updateForm : createForm}>
@@ -116,11 +123,14 @@ const EditPlayerForm = (props) => {
       <FormGroup>
         <Label for="position">Position</Label>
         <Input
-          type="text"
+          type="select"
           name="position"
           onChange={onChange}
-          value={form.position === null ? "" : form.position}
-        />
+          >
+          <option>{form.position === null ? "" : form.position}</option> 
+          {dropDownValues(positions)}
+ 
+        </Input>
       </FormGroup>
       <FormGroup>
         <Label for="age">Age</Label>
@@ -129,15 +139,6 @@ const EditPlayerForm = (props) => {
           name="age"
           onChange={onChange}
           value={form.age === null ? "" : form.age}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="team">Team</Label>
-        <Input
-          type="text"
-          name="team"
-          onChange={onChange}
-          value={form.team === null ? "" : form.team}
         />
       </FormGroup>
 
