@@ -50,7 +50,7 @@ const EditTeamForm = (props) => {
         props.toggle();
       }
     } catch (error) {
-      // Catch some error
+      alert("There was a problem entering team data: " + error.message);
     }
   };
 

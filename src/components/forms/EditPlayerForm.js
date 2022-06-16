@@ -83,7 +83,7 @@ const EditPlayerForm = (props) => {
         window.location.reload(false);
       }
     } catch (error) {
-      // Catch some error
+      alert("There was a problem entering player data: " + error.message);
     }
   };
 
