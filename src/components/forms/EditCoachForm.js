@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
 
@@ -177,6 +177,21 @@ const EditCoachForm = (props) => {
                     value={form.careerLosses === null ? '' : form.careerLosses}
                 />
             </FormGroup>
+            <FormGroup>
+                <Label for="team">Team</Label>
+                <Input
+                    type="select"
+                    name="team"
+                    onChange={onChange}
+                    required
+                >
+                    <option>
+                        {form.team === null ? '' : form.team}
+                    </option>
+                    {dropDownValues(teamList)}
+                </Input>
+            </FormGroup>
+
             <span className="text-danger">{}</span>{' '}
             <Button className="mt-3" color="primary">
                 Submit

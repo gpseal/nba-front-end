@@ -8,6 +8,25 @@ const EditPlayerForm = (props) => {
 
     const player = props.data
 
+    const [teamList, setTeamList] = useState([]) // State variables
+
+    const getTeams = async () => {
+        try {
+            const res = await axios.get(`${BASE_URL}/api/v1/teams`, {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+                },
+            })
+            setTeamList(res.data.data.map((x) => x._id)) //getting existing team IDs for drop down menus
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getTeams()
+    }, [])
+
     const [form, setForm] = useState(
         !player
             ? {
@@ -16,6 +35,7 @@ const EditPlayerForm = (props) => {
                   lastName: '',
                   position: '',
                   age: '',
+                  team: ''
               }
             : {
                   _id: 0,
@@ -23,6 +43,7 @@ const EditPlayerForm = (props) => {
                   lastName: player.lastName,
                   position: player.position,
                   age: player.age,
+                  team: player.team._id,
               }
     )
 
@@ -45,6 +66,7 @@ const EditPlayerForm = (props) => {
                     lastName: form.lastName,
                     position: form.position,
                     age: form.age,
+                    team: form.team
                 },
                 {
                     headers: {
@@ -55,12 +77,18 @@ const EditPlayerForm = (props) => {
                 }
             )
             if (res.status === 200) {
-                form._id = res.data.data[res.data.data.length - 1]._id
+                
+                alert('Player added successfully')
+                console.log(form)
+                // form._id = res.data.data[res.data.data.length - 1]._id - Please check in future
                 props.createResource(form)
                 props.toggle()
+                refreshPage()
+                
             }
         } catch (error) {
-            // Catch some error
+            alert('There was a problem entering player data here: ' + error.message)
+            refreshPage()
         }
     }
 
@@ -74,6 +102,7 @@ const EditPlayerForm = (props) => {
                     lastName: form.lastName,
                     position: form.position,
                     age: form.age,
+                    team: form.team
                 },
                 {
                     headers: {
@@ -88,7 +117,7 @@ const EditPlayerForm = (props) => {
                 form._id = player._id
                 props.updateResource(form)
                 props.toggle()
-                window.location.reload(false)
+                refreshPage()
             }
         } catch (error) {
             alert('There was a problem entering player data: ' + error.message)
@@ -150,6 +179,20 @@ const EditPlayerForm = (props) => {
                     onChange={onChange}
                     value={form.age === null ? '' : form.age}
                 />
+            </FormGroup>
+            <FormGroup>
+                <Label for="team">Team</Label>
+                <Input
+                    type="select"
+                    name="team"
+                    onChange={onChange}
+                    required
+                >
+                    <option>
+                        {form.team === null ? '' : form.team}
+                    </option>
+                    {dropDownValues(teamList)}
+                </Input>
             </FormGroup>
             <span className="text-danger">{}</span>{' '}
             <Button className="mt-3" color="primary">

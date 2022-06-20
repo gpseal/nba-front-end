@@ -6,15 +6,15 @@ import EditPlayerForm from '../forms/EditPlayerForm'
 import EditCoachForm from '../forms/EditCoachForm'
 import './ModalCSS.css'
 
-const buttonStyle = {
-    filter: 'brightness(0.4)',
-    color: 'white',
-    textDecoration: 'none',
-    padding: '3px 15px',
-    transition: '0.3s',
-    borderRadius: '3px',
-    border: 'none',
-}
+// const buttonStyle = {
+//     filter: 'brightness(0.4)',
+//     color: 'white',
+//     textDecoration: 'none',
+//     padding: '3px 15px',
+//     transition: '0.3s',
+//     borderRadius: '3px',
+//     border: 'none',
+// }
 
 const ModalForm = (props) => {
     const [modal, setModal] = useState(false)
