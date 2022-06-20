@@ -1,3 +1,12 @@
+/**
+ * Author: Greg Seal
+ * Date: June 2020
+ * Course:  Introduction to app development
+ *
+ * For pagination of data tables
+ * 
+ */
+
 import React from 'react'
 
 const Pagination = (props) => {

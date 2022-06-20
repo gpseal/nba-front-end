@@ -9,7 +9,7 @@
  * deleteResources: removes data from array to be displayed, updates resources array
  * getData: fetches data from API, inputs into resources array
  * displayFields: produces array of column headings for table
- * displayData: displays table data
+ * displayData: displays table data content
  */
 
 import { useEffect, useState } from 'react'
@@ -96,8 +96,6 @@ const DataTable = (props) => {
         getData()
     }, [])
 
-    // const teamList = resources.map((t) => t._id)
-
     const displayFields = props.fields.map((f) => {
         if (f === 'edit') {
             return ''
@@ -124,7 +122,6 @@ const DataTable = (props) => {
                                         data={d}
                                         updateResource={updateResource}
                                         category={props.category}
-                                        // teamList={teamList}
                                     />
                                     <Button
                                         color="danger"
@@ -175,12 +172,10 @@ const DataTable = (props) => {
                     <tr>{displayFields}</tr>
                 </thead>
                 <tbody>{currentData}</tbody>
-                {/* <EditButton category={props.category} id={ "none" }/> */}
             </Table>
             <ModalForm
                 buttonLabel={label}
                 createResource={createResource}
-                // teamList={teamList}
             />
             <Pagination
                 dataPerPage={dataPerPage}

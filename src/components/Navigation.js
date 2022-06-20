@@ -1,3 +1,15 @@
+/**
+ * Author: Greg Seal
+ * Date: June 2020
+ * Course:  Introduction to app development
+ *
+ * App Navigation
+ * 
+ * login: Defines login status of user
+ * logout: Logs user out of application
+ * 
+ */
+
 import axios from 'axios'
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -78,6 +90,7 @@ const Navigation = () => {
         </>
     )
 
+    //field categories to be passed into data table
     const teamFields = [
         'name',
         'city',
@@ -147,7 +160,6 @@ const Navigation = () => {
                     />
                     <Route path="/register" element={<RegistrationForm />} />
                     {authResources}
-                    {/* <Route path="/edit/:id" element={<UpdateData />} /> */}
                 </Routes>
             </Container>
         </Router>
