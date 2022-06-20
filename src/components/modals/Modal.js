@@ -1,20 +1,18 @@
+/**
+ * Author: Greg Seal
+ * Date: June 2020
+ * Course:  Introduction to app development
+ *
+ * Displays forms to edit existing records or add new records to collections
+ *
+ */
+
 import { useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
-// import AddEditTeamForm from "../forms/AddEditTeamForm";
 import EditTeamForm from '../forms/EditTeamForm'
 import EditPlayerForm from '../forms/EditPlayerForm'
 import EditCoachForm from '../forms/EditCoachForm'
 import './ModalCSS.css'
-
-// const buttonStyle = {
-//     filter: 'brightness(0.4)',
-//     color: 'white',
-//     textDecoration: 'none',
-//     padding: '3px 15px',
-//     transition: '0.3s',
-//     borderRadius: '3px',
-//     border: 'none',
-// }
 
 const ModalForm = (props) => {
     const [modal, setModal] = useState(false)
@@ -27,20 +25,16 @@ const ModalForm = (props) => {
         </Button>
     )
 
-    // console.log(props.data)
-
     const label = props.buttonLabel
 
     let button = ''
     let title = ''
     let submitForm = ''
 
-    if (label === 'Edit') {
+    if (label === 'Edit') { //opens form to edit existing data
         button = (
             <Button
                 color="secondary"
-                // style={buttonStyle}
-                // className="button"
                 onClick={toggle}
                 style={{ float: 'left', marginRight: '10px' }}
             >
@@ -95,7 +89,7 @@ const ModalForm = (props) => {
                     break
             }
         }
-    } else {
+    } else { //opens form to add new data
         button = (
             <Button
                 onClick={toggle}

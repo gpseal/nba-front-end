@@ -1,3 +1,13 @@
+/**
+ * Author: Greg Seal
+ * Date: June 2020
+ * Course:  Introduction to app development
+ *
+ * For logging in existing users
+ *
+ * loginUser: Posts user inputs to API, if successful, stores token and navigates user to home page
+ */
+
 import axios from 'axios'
 import { useState } from 'react'
 import { Alert, Button, Form, FormGroup, Input } from 'reactstrap'

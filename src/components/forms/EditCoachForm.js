@@ -1,3 +1,17 @@
+/**
+ * Author: Greg Seal
+ * Date: June 2020
+ * Course:  Introduction to app development
+ *
+ * For editing or adding records to the Coaches collection
+ * 
+ * onChange: Updates form values
+ * getTeams: requests all team data for populating teams drop down menu
+ * createForm: Posts new Coach record to Coaches collection
+ * updateForm: Updates existing coach record
+ * dropDownValues: Populates drop down menus with array values
+ */
+
 import { useState, useEffect} from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
@@ -25,8 +39,6 @@ const EditCoachForm = (props) => {
     useEffect(() => {
         getTeams()
     }, [])
-
-    console.log('here')
 
     const [form, setForm] = useState(
         !coach
@@ -87,7 +99,7 @@ const EditCoachForm = (props) => {
                 window.location.reload(false)
             }
         } catch (error) {
-            alert('There was a problem entering coach data: ' + error.message)
+            alert('There was a problem creating coach data: ' + error.message)
         }
     }
 
@@ -120,7 +132,7 @@ const EditCoachForm = (props) => {
                 window.location.reload(false)
             }
         } catch (error) {
-            // Catch some error
+            alert('There was a problem entering coach data: ' + error.message)
         }
     }
 

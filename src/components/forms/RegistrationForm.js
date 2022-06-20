@@ -1,3 +1,13 @@
+/**
+ * Author: Greg Seal
+ * Date: June 2020
+ * Course:  Introduction to app development
+ *
+ * For Registering new users
+ *
+ * registerUser: Posts credentials of new users to be stored in the API database
+ */
+
 import axios from 'axios'
 import { useState } from 'react'
 import { Alert, Button, Form, FormGroup, Input } from 'reactstrap'

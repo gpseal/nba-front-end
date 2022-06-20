@@ -1,3 +1,17 @@
+/**
+ * Author: Greg Seal
+ * Date: June 2020
+ * Course:  Introduction to app development
+ *
+ * For displaying existing API collections
+ * 
+ * updateResource:  Finds resource to update via form
+ * deleteResources: removes data from array to be displayed, updates resources array
+ * getData: fetches data from API, inputs into resources array
+ * displayFields: produces array of column headings for table
+ * displayData: displays table data
+ */
+
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Table, Button } from 'reactstrap'
@@ -11,13 +25,11 @@ const DataTable = (props) => {
     const [resources, setResources] = useState([])
 
     const [loading, setLoading] = useState(false)
-    const [currentPage, setCurrentPage] = useState(1)
-    const [dataPerPage, setDataPerPage] = useState(5)
-
-    // const [pageNum, setPageNum] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1) //starting page for pagination
+    const [dataPerPage, setDataPerPage] = useState(5) //for pagination
 
     const createResource = (resource) => {
-        setResources([...resources, resource]) //what do the three dots mean?
+        setResources([...resources, resource])
     }
 
     const updateResource = (resource) => {
@@ -84,10 +96,7 @@ const DataTable = (props) => {
         getData()
     }, [])
 
-    const teamList = resources.map((t) => t._id)
-
-    // console.log(props.fields)
-    // console.log(teamList)
+    // const teamList = resources.map((t) => t._id)
 
     const displayFields = props.fields.map((f) => {
         if (f === 'edit') {
@@ -107,8 +116,7 @@ const DataTable = (props) => {
             <tr key={d._id}>
                 {props.fields.map((f) => {
                     switch (f) {
-                        case 'edit':
-                            // console.log(d)
+                        case 'edit': //shows edit button
                             return (
                                 <td>
                                     <ModalForm
@@ -116,7 +124,7 @@ const DataTable = (props) => {
                                         data={d}
                                         updateResource={updateResource}
                                         category={props.category}
-                                        teamList={teamList}
+                                        // teamList={teamList}
                                     />
                                     <Button
                                         color="danger"
@@ -139,7 +147,6 @@ const DataTable = (props) => {
                             if (d[f]) {
                                 return <td>{d[f].name}</td>
                             } else return <td>n/a</td>
-                            // return <td>{d[f].name}</td>
                             break
                         default:
                             return <td>{d[f]}</td>
@@ -173,7 +180,7 @@ const DataTable = (props) => {
             <ModalForm
                 buttonLabel={label}
                 createResource={createResource}
-                teamList={teamList}
+                // teamList={teamList}
             />
             <Pagination
                 dataPerPage={dataPerPage}

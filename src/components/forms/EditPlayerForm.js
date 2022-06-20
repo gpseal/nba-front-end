@@ -1,3 +1,17 @@
+/**
+ * Author: Greg Seal
+ * Date: June 2020
+ * Course:  Introduction to app development
+ *
+ * For editing or adding records to the Players collection
+ *
+ * onChange: Updates form values
+ * getTeams: requests all team data for populating teams drop down menu
+ * createForm: Posts new player record to Players collection
+ * updateForm: Updates existing player record
+ * dropDownValues: Populates drop down menus with array values
+ */
+
 import { useState, useEffect } from 'react'
 
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
@@ -87,7 +101,7 @@ const EditPlayerForm = (props) => {
                 
             }
         } catch (error) {
-            alert('There was a problem entering player data here: ' + error.message)
+            alert('There was a problem creating player data: ' + error.message)
             refreshPage()
         }
     }

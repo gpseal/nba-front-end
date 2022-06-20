@@ -1,3 +1,15 @@
+/**
+ * Author: Greg Seal
+ * Date: June 2020
+ * Course:  Introduction to app development
+ *
+ * For editing or adding records to the Players collection
+ *
+ * onChange: Updates form values
+ * createForm: Posts new player record to Players collection
+ * updateForm: Updates existing player record
+ */
+
 import { useState } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
@@ -57,7 +69,7 @@ const EditTeamForm = (props) => {
                 props.toggle()
             }
         } catch (error) {
-            alert('There was a problem entering team data: ' + error.message)
+            alert('There was a problem creating team data: ' + error.message)
         }
     }
 
@@ -88,7 +100,7 @@ const EditTeamForm = (props) => {
                 props.updateResource(form)
             }
         } catch (error) {
-            // Catch some error
+            alert('There was a problem entering team data: ' + error.message)
         }
     }
 
