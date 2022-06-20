@@ -4,7 +4,7 @@
 
 [id607001-sealgp1-re.herokuapp.com](https://id607001-sealgp1-re.herokuapp.com/)
 
-## Setting up environmet for development
+## Setting Up Environmet for Development
 
 - Clone the repository into a local directory, open a terminal within an editor.
 
@@ -20,7 +20,7 @@
 
   While the development server is running, editing of code will be displayed in real time in the browser
 
-## To run UI Cypress tests
+## Run UI Cypress Tests
 
 - To prepare the environment for testing, run the development server as explained previously.
 
@@ -54,7 +54,6 @@ A new browser window will be opened and the tests will run as scripted in the /c
 - Deploy your current version: 
 
   `git push heroku main`
-<br>
 
 ## Formatting Code
 
