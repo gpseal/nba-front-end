@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# NBA Statistics Database
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## App URL
 
-## Available Scripts
+[id607001-sealgp1-re.herokuapp.com](https://id607001-sealgp1-re.herokuapp.com/)
 
-In the project directory, you can run:
+## Setting Up Environmet for Development
 
-### `npm start`
+- Clone the repository into a local directory, open a terminal within an editor.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Install required dependencies by entering
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  `npm install`
 
-### `npm test`
+- After the installation is complete, run the development server with the following command:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  `npm start`
 
-### `npm run build`
+  This allows you to view the app in your browser: [http://localhost:3000](http://localhost:3000)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  While the development server is running, editing of code will be displayed in real time in the browser
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Run UI Cypress Tests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- To prepare the environment for testing, run the development server as explained previously.
 
-### `npm run eject`
+- With the dev server running, open a new terminal and at the command line enter:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  `npm run cypress`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  Cypress will open in a new window, click on the auth.spec.js file to run the test.<br>
+![image](https://user-images.githubusercontent.com/83617997/174523119-e2c3bf08-4663-4b51-9e29-3d5b40c7ade1.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+A new browser window will be opened and the tests will run as scripted in the /cypress/integration folder
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Deploying Appplication to Heroku
 
-## Learn More
+- Login to heroku.com
+- select the **"new"** dropdown menu and choose **"Create new app"**
+- Enter your chosen application name
+- Select the **"Deploy"** tab, choose **GitHub** deployment
+- Find and select the appropriate reprository to connect to
+- New options will appear, enable **automatic deploys** and choose the appropriate branch to deploy from
+- Manually deploy the master or main branch
+- Go to the **Settings** tab, find the **Buildpacks** section and click the **Add buildback** button
+- Add the following buildpack - https://github.com/mars/create-react-app-buildpack, then click the **Add changes** button.
+- Copy the generated URL and use as required
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Alternatively, if the current version of Heroku is not compatible with auto deploy**
+- Download and install Heroku CLI - https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli
+- Connect to your project: 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  `heroku git:remote -a [name of your Heroku project]`
+- Deploy your current version: 
 
-### Code Splitting
+  `git push heroku main`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Formatting Code
 
-### Analyzing the Bundle Size
+To format the code using prettier, at the command line enter:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  `npm run format`
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
