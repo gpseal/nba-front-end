@@ -1,11 +1,9 @@
-import React from "react";
-import { PaginationItem } from "reactstrap";
+import React from 'react'
 
 const Pagination = (props) => {
-
     console.log(props.dataPerPage)
 
-    const pageNumbers = [];
+    const pageNumbers = []
 
     for (let i = 1; i <= Math.ceil(props.totalData / props.dataPerPage); i++) {
         pageNumbers.push(i)
@@ -14,9 +12,14 @@ const Pagination = (props) => {
     return (
         <nav>
             <ul className="pagination">
-                {pageNumbers.map(number => (
-                    <li key={number} className="page-item" >
-                        <a onClick={() => props.paginate(number)}href="#!" className="page-link" style={{color: 'black'}}>
+                {pageNumbers.map((number) => (
+                    <li key={number} className="page-item">
+                        <a
+                            onClick={() => props.paginate(number)}
+                            href="#!"
+                            className="page-link"
+                            style={{ color: 'black' }}
+                        >
                             {number}
                         </a>
                     </li>
@@ -24,7 +27,6 @@ const Pagination = (props) => {
             </ul>
         </nav>
     )
-
 }
 
-export default Pagination;
+export default Pagination

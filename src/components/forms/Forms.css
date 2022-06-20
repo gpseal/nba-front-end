@@ -6,9 +6,9 @@
     transition: 0.3s;
     border-radius: 3px;
     border: none;
-  }
+}
 
-.button:hover{
-  background-color: darkslategray;
-  color: white;
+.button:hover {
+    background-color: darkslategray;
+    color: white;
 }
