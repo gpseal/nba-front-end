@@ -45,10 +45,7 @@ A new browser window will be opened and the tests will run as scripted in the /c
 - Enter 'npm install' as the build command
 - Enter 'npm start' as the start command
 - Towards the bottom of the page, press 'advanced' to reveal more options
-- Enter appropriate Enironmental variables
-- Enter MONGO_URI (from .env) and the appropriate string to connect to mongodb
-- Enter JWT_SECRET (from .env) and the appropriate string to set tocken password
-- Enter JWT_LIFETIME (from .env) and the appropriate value to set token lifespan
+- Enter appropriate Enironmental variables if necessary
 - Once statisfied, press the 'Create Web Service' button to complete the process
 - Copy the generated URL and use as required
 
