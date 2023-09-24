@@ -28,7 +28,7 @@ import RegistrationForm from './forms/RegistrationForm'
 import DataTable from './tables/DataTable'
 
 const Navigation = () => {
-    const BASE_URL = 'https://id607001-sealgp1.herokuapp.com'
+    const BASE_URL = 'https://nba-api-bvui.onrender.com'
 
     const [isOpen, setIsOpen] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(
