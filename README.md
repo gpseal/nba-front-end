@@ -2,7 +2,7 @@
 
 ## App URL
 
-[id607001-sealgp1-re.herokuapp.com](https://id607001-sealgp1-re.herokuapp.com/)
+https://nba-front-end.onrender.com/
 
 ## Setting Up Environmet for Development
 
@@ -33,27 +33,24 @@
 
 A new browser window will be opened and the tests will run as scripted in the /cypress/integration folder
 
-## Deploying Appplication to Heroku
+## Deploying Appplication to Render
 
-- Login to heroku.com
-- select the **"new"** dropdown menu and choose **"Create new app"**
+- Login to render.com
+- select the **"new +"** dropdown menu and choose **"Web Service"**
+- Choose "Build and deploy from a Git repository"
 - Enter your chosen application name
 - Select the **"Deploy"** tab, choose **GitHub** deployment
-- Find and select the appropriate reprository to connect to
-- New options will appear, enable **automatic deploys** and choose the appropriate branch to deploy from
-- Manually deploy the master or main branch
-- Go to the **Settings** tab, find the **Buildpacks** section and click the **Add buildback** button
-- Add the following buildpack - https://github.com/mars/create-react-app-buildpack, then click the **Add changes** button.
+- Find and select the appropriate reprository to connect to and press "connect"
+- Enter a name
+- Enter 'npm install' as the build command
+- Enter 'npm start' as the start command
+- Towards the bottom of the page, press 'advanced' to reveal more options
+- Enter appropriate Enironmental variables
+- Enter MONGO_URI (from .env) and the appropriate string to connect to mongodb
+- Enter JWT_SECRET (from .env) and the appropriate string to set tocken password
+- Enter JWT_LIFETIME (from .env) and the appropriate value to set token lifespan
+- Once statisfied, press the 'Create Web Service' button to complete the process
 - Copy the generated URL and use as required
-
-**Alternatively, if the current version of Heroku is not compatible with auto deploy**
-- Download and install Heroku CLI - https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli
-- Connect to your project: 
-
-  `heroku git:remote -a [name of your Heroku project]`
-- Deploy your current version: 
-
-  `git push heroku main`
 
 ## Formatting Code
 
