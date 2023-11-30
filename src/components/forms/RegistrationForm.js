@@ -22,6 +22,7 @@ const RegistrationForm = (props) => {
   const [isRegistered, setIsRegistered] = useState(false)
   const [authError, setAuthError] = useState(false) // Used for authentication errors
   const [unknownError, setUnknownError] = useState(false) // Used for network errors
+  const [loading, setLoading] = useState(false)
 
   const registerUser = async () => {
     setAuthError(false)
@@ -35,10 +36,12 @@ const RegistrationForm = (props) => {
       })
 
       if (res.status === 201) {
+        setLoading(false)
         alert('Registration Successful.')
         setIsRegistered(true)
       }
     } catch (error) {
+      setLoading(false)
       console.log(error)
 
       if (error.response.status === 500) {
@@ -55,6 +58,7 @@ const RegistrationForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setLoading(true)
     registerUser()
   }
 
@@ -116,6 +120,7 @@ const RegistrationForm = (props) => {
           </Alert>
         ) : null}
         <Button>Submit</Button>
+        {loading && <div style={{ width: '100%', textAlign: 'center' }}>LOADING......(It may take a while).</div>}
       </Form>
     </>
   )
